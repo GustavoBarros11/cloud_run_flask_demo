@@ -1,11 +1,11 @@
 flask==2.3.2
 flask-sqlalchemy==3.0.3
-pandas==1.4.4
 google-api-python-client==2.88.0
 cloud-sql-python-connector==1.2.4
-scikit-learn==1.2.2
 sqlalchemy==2.0.4
 apiclient==1.0.4
 pymysql==1.0.2
-numpy==1.23.3
 gunicorn==20.1.0
+flask-cors==3.0.10
+Flask-SSLify==0.1.5
+webargs==8.2.0
