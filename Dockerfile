@@ -13,7 +13,7 @@ WORKDIR $APP_HOME
 COPY requirements.txt .
 
 # Instale as dependências
-RUN pip /install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copie todo o conteúdo atual para o diretório de trabalho
 COPY . .
