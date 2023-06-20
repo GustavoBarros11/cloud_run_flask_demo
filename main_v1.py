@@ -4,19 +4,15 @@ Articles Link
 https://blog.devgenius.io/deploy-a-flask-app-with-docker-google-cloud-run-and-cloud-sql-for-postgresql-6dc9e7f4c434
 
 """
+import os
 
 from flask import Flask
-from flask_cors import CORS
-from flask_sslify import SSLify
 
 from webargs import fields
 from webargs.flaskparser import use_args
 
 # Initialise flask app
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
-sslify = SSLify(app)
-
 
 @app.route("/hello", methods=["GET"])
 def hello():
@@ -38,11 +34,11 @@ def hello_from_body(args):
     return f"Hello from body, {my_name}", 200
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def top_page():
     """top_page"""
     return "Welcome to my application, version 1\n"
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", host="0.0.0.0", port=8080)
+    app.run(debug=False, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))

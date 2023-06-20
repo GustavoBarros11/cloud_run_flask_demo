@@ -19,7 +19,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose port 5000
-ENV PORT 5000
 EXPOSE $PORT
 
 # Use gunicorn as the entrypoint
