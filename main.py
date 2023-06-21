@@ -97,8 +97,8 @@ def save_vote():
     )
     try:
         with db.connect() as conn:
-            conn.execute(stmt, time_cast=time_cast, candidate=team)
-            conn.execute(totals_stmt, candidate=team)
+            conn.execute(stmt, {"time_cast":time_cast}, {"candidate": team})
+            conn.execute(totals_stmt, {"candidate": team})
     except Exception as e:
         logger.exception(e)
         return Response(
