@@ -1,11 +1,12 @@
 import datetime
 import logging
+import sqlalchemy
 import os
 import random
 import time
 
 from flask import Flask, render_template, request, Response
-import sqlalchemy
+from sqlalchemy import text
 
 # Hydrate the environment from the .env file
 from dotenv import load_dotenv
@@ -46,10 +47,10 @@ def index():
     votes = []
     with db.connect() as conn:
         # Execute the query and fetch all results
-        recent_votes = conn.execute(
+        recent_votes = conn.execute(text(
             "SELECT candidate, time_cast FROM votes "
             "ORDER BY time_cast DESC LIMIT 5"
-        ).fetchall()
+        )).fetchall()
         # Convert the results into a list of dicts representing votes
         for row in recent_votes:
             votes.append({
