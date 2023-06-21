@@ -1,11 +1,7 @@
 flask==2.3.2
 flask-sqlalchemy==3.0.3
-google-api-python-client==2.88.0
-cloud-sql-python-connector==1.2.4
 sqlalchemy==2.0.4
-apiclient==1.0.4
+pg8000==1.29.8
 pymysql==1.0.2
 gunicorn==20.1.0
-flask-cors==3.0.10
-Flask-SSLify==0.1.5
-webargs==8.2.0
+python-dotenv==1.0.0

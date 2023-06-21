@@ -1,25 +1,24 @@
-# Use Python37
-FROM python:3.9
+FROM python:3.8
 
-# Allow statements and log messages to immediately appear in the logs
-ENV PYTHONUNBUFFERED True
+# Update pip
+RUN pip install -U pip
 
-# Define o diretório de trabalho dentro do contêiner
+# Copy application dependency manifests to the container image.
+# Copying this separately prevents re-running pip install on every code change.
+COPY requirements.txt ./
+
+# Install production dependencies.
+RUN set -ex; \
+    pip install -r requirements.txt; \
+    pip install gunicorn
+
 # Copy local code to the container image.
-ENV APP_HOME /
+ENV APP_HOME /app
 WORKDIR $APP_HOME
+COPY . ./
 
-# Copy requirements.txt to the docker image and install packages
-COPY requirements.txt .
-
-# Instale as dependências
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copie todo o conteúdo atual para o diretório de trabalho
-COPY . .
-
-# Expose port 5000
-EXPOSE $PORT
-
-# Use gunicorn as the entrypoint
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 1 --timeout 60 main_v2:app
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 main:app
