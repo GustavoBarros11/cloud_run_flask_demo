@@ -61,10 +61,10 @@ def index():
         stmt = sqlalchemy.text(
             "SELECT num_votes FROM totals WHERE candidate=:candidate")
         # Count number of votes for tabs
-        tab_result = conn.execute(stmt, candidate="TABS").fetchone()
+        tab_result = conn.execute(stmt, {"candidate": "TABS"}).fetchone()
         tab_count = tab_result[0] if tab_result is not None else 0
         # Count number of votes for spaces
-        space_result = conn.execute(stmt, candidate="SPACES").fetchone()
+        space_result = conn.execute(stmt, {"candidate": "SPACES"}).fetchone()
         space_count = space_result[0] if space_result is not None else 0
 
     return render_template(
