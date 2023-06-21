@@ -22,4 +22,4 @@ COPY . .
 EXPOSE $PORT
 
 # Use gunicorn as the entrypoint
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 1 --timeout 60 main_v1:app
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 1 --timeout 60 main_v2:app
